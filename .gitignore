@@ -1,0 +1,4 @@
+wp/phpMyAdmin
+.vscode
+test*
+*.DS_Store
