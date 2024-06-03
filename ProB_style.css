@@ -21,24 +21,3 @@
 .center-icon {
   font-size: 24px;
 }
-
-/* チェックボックス */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-}
-.container > div {
-  width: 25%; 
-  box-sizing: border-box;
-  padding: 10px;
-}
-
-
-/* フッター */
-footer{
-  background-color:#6c8650;
-  color:white;
-  font-style:italic;
-  font-size:smaller;
-  text-align:right;
-}

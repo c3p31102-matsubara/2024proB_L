@@ -1,125 +1,128 @@
 <!DOCTYPE html>
 <html lang="ja">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>拾得物管理システム</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <link rel="stylesheet" href="ProB_style.css">
- </head>
- <body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-custom">
-          <div class="container-lg">
-            <a class="navbar-brand  fw-bold text-white" href="#">拾得物管理システム</a>
-    
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">TOP</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">拾得者登録</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">拾得物登録</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">検索機能</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">捜査依頼</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">拾得物一覧</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-    </header>
-    <main>
-     <div>
-      <h4>検索ページ</h4>
-      <p>拾得物を検索するシステムです。</p>
-     </div>
-     <div>
-        <p>
-         紛失物種類
-        </p>
-      <select name="A">
-        <option value="1">財布</optoin>
-        <option value="2">携帯</optoin>
-        <option value="3">雑貨</optoin>
-        <option value="4">その他</optoin> 
-      </select>
-     </div>
-     <div>
-        <p>
-         紛失場所
-        </p>
-        <form>
-          <div class="container">
-            <div>
-              <input type="checkbox" id="subscribeNews1" name="subscribe" value="newsletter1" />
-              <label for="subscribeNews1">一号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews2" name="subscribe" value="newsletter2" />
-              <label for="subscribeNews2">二号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews3" name="subscribe" value="newsletter3" />
-              <label for="subscribeNews3">三号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews4" name="subscribe" value="newsletter4" />
-              <label for="subscribeNews4">四号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews5" name="subscribe" value="newsletter5" />
-              <label for="subscribeNews5">五号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews6" name="subscribe" value="newsletter6" />
-              <label for="subscribeNews6">六号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews7" name="subscribe" value="newsletter7" />
-              <label for="subscribeNews7">七号館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews8" name="subscribe" value="newsletter8" />
-              <label for="subscribeNews8">体育館</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews9" name="subscribe" value="newsletter9" />
-              <label for="subscribeNews9">食堂</label>
-            </div>
-            <div>
-              <input type="checkbox" id="subscribeNews10" name="subscribe" value="newsletter10" />
-              <label for="subscribeNews10">その他</label>
-            </div>
-          </div>
-        </form>
-     </div>
-     <div>
-        <p>
-            紛失日時
-        </p>
-        <input type="date"> 
-     </div>
-     <div>
-        <input type="button" value="検索" />
-        <input type="button" value="リセット" />
-     </div>
-    </main>
-    <footer>
-     <p>Copyright &copy; 2024,Team J,All rights reserved.　
-        文教大学　情報学部　情報システム学科　プロジェクト演習BC　　
-     </p>
-    </footer>
- </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾得物管理システム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="modisear_style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-custom">
+      <div class="container-lg">
+        <a class="navbar-brand  fw-bold text-white" href="#">拾得物管理システム</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">TOP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">拾得者登録</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">拾得物登録</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">検索機能</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">捜査依頼</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">拾得物一覧</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <header class="header">
+            拾得物管理システム
+        </header>
+        <section class="change-delete-page">
+            <h2>検索ページ</h2>
+            <p>発見報告・紛失届の検索が可能</p>
+        </section>
+        <section class="form-section">
+            <form>
+                <div class="form-group">
+                    <label for="item-category" class="form-label">拾得物カテゴリー</label>
+                    <select name="A" id="item-category" class="form-select">
+                        <option value="1">財布</option>
+                        <option value="2">携帯</option>
+                        <option value="3">雑貨</option>
+                        <option value="4">その他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">拾得場所</label>
+                    <div class="checkbox-container">
+                        <div>
+                            <input type="checkbox" id="location1" name="location" value="一号館">
+                            <label for="location1">一号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location2" name="location" value="二号館">
+                            <label for="location2">二号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location3" name="location" value="三号館">
+                            <label for="location3">三号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location4" name="location" value="四号館">
+                            <label for="location4">四号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location5" name="location" value="五号館">
+                            <label for="location5">五号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location6" name="location" value="六号館">
+                            <label for="location6">六号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location7" name="location" value="七号館">
+                            <label for="location7">七号館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location8" name="location" value="体育館">
+                            <label for="location8">体育館</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location9" name="location" value="食堂">
+                            <label for="location9">食堂</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="location10" name="location" value="その他">
+                            <label for="location10">その他</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="lost-date" class="form-label">紛失した日時</label>
+                    <input type="date" id="lost-date" name="lost-date" class="form-input">
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn">検索</button>
+                    <button type="reset" class="btn">リセット</button>
+                </div>
+            </form>
+        </section>
+        <footer class="footer">
+            文教大学 情報学部 情報システム学科 プロジェクト演習BC
+            <p>
+              Copyright &copy; 2024,Team J,All rights reserved.　
+            </p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #e0f7d9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    background-color: #8cc657;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-custom {
+    background-color: #6c8650;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #393636 !important;
+}
+
+.round-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #6c8650;
+    color: white;
+    text-decoration: none;
+}
+
+.center-icon {
+    font-size: 24px;
+}
+
+.search-page {
+    background-color: #b0e0a8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.search-page h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.search-page p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+.form-section {
+    background-color: #d4f2c4;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkbox-container div {
+    width: 25%;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    background-color: #8cc657;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #7bb84d;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
