@@ -21,3 +21,13 @@
 .center-icon {
   font-size: 24px;
 }
+
+
+/* フッター */
+footer{
+  background-color:#6c8650;
+  color:white;
+  font-style:italic;
+  font-size:smaller;
+  text-align:right;
+}
