@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
+<?php
+// $dbh = connect();
+// $users_query = $dbh->query("SELECT * FROM ユーザ");
+// $users_query->setFetchMode(PDO::FETCH_ASSOC);
+// foreach ($users_query->fetchAll() as $user) {
+//     foreach ($user as $content)
+//         echo $content . " ";
+//     echo "<br>";
+// }
 
-<head>
-    <?php
-
-    ?>
-</head>
-
-<body>
-    <?php
+function connect(): PDO
+{
     define("db_host", "localhost");
     define("db_name", "probc2024");
     define("db_user", "2024probl");
@@ -22,14 +23,5 @@
         echo $e->getMessage();
         exit;
     }
-    $users_query = $dbh->query("SELECT * FROM ユーザ");
-    $users_query->setFetchMode(PDO::FETCH_ASSOC);
-    foreach ($users_query->fetchAll() as $user) {
-        foreach ($user as $content)
-            echo $content . " ";
-        echo "<br>";
-    }
-    ?>
-</body>
-
-</html>
+    return $dbh;
+}
