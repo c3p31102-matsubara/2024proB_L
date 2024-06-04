@@ -52,34 +52,34 @@
         <p class="card-text p-3 mb-2">拾得者(ユーザー)登録画面では、本システムを利用するにあたってのユーザー登録を行います。必要な情報を入力してください。拾得者(ユーザー)登録は拾得物登録機能の利用前に必要になります。</p>
       </div>
     </div>
-    <div class="col mt-1">
-      <table>
-        <tbody>
-          <tr>
-            <td>氏名</td>
-            <td>
-              <input type="text">
-            </td>
-          </tr>
-          <tr>
-            <td>所属</td>
-            <td><select class="form-select" aria-label="Default select example">
-              <option selected>情報学部生</option>
-              <option value="1">健康栄養学部生</option>
-              <option value="2">情報学部教員</option>
-              <option value="3">事務局</option>
-              <option value="4">その他</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td>電話番号</td>
-          </tr>
-          <tr>
-            <td>メールアドレス</td>
-          </tr>
-        </tbody>
-      </table>
-      
+    <div class="container">
+      <div class="col mt-4">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">氏名</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="氏名">
+        </div>
+        <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">所属</label>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>情報学部学生</option>
+          <option value="1">健康栄養学部学生</option>
+          <option value="2">情報学部教員</option>
+          <option value="3">事務局</option>
+          <option value="4">その他</option>
+        </select>
+      </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">メールアドレス</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">電話番号</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+        </div>
+        <div>
+          <button type="button" class="btn btn-success center-block">登録</button>
+        </div>
+      </div>
     </div>
 
 
