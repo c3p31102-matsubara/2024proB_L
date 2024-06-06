@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2024-06-06 09:17:23
+-- 生成日時: 2024-06-06 10:45:17
 -- サーバのバージョン： 10.4.28-MariaDB
 -- PHP のバージョン: 8.2.4
 
@@ -119,15 +119,16 @@ CREATE TABLE `user` (
   `number` varchar(10) NOT NULL,
   `AffiliationID` int(10) NOT NULL,
   `emailaddress` varchar(50) NOT NULL,
-  `telephone` varchar(20) NOT NULL
+  `telephone` varchar(20) NOT NULL,
+  `name` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- テーブルのデータのダンプ `user`
 --
 
-INSERT INTO `user` (`ID`, `attribute`, `number`, `AffiliationID`, `emailaddress`, `telephone`) VALUES
-(1, 'student', 'c3p11111', 1, 'ccccccccc@bunkyo.ac.jp', '000000000');
+INSERT INTO `user` (`ID`, `attribute`, `number`, `AffiliationID`, `emailaddress`, `telephone`, `name`) VALUES
+(1, 'student', 'c3p11111', 1, 'ccccccccc@bunkyo.ac.jp', '000000000', 0);
 
 --
 -- ダンプしたテーブルのインデックス
