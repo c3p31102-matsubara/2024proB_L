@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- ホスト: 127.0.0.1
--- 生成日時: 2024-06-06 10:45:17
--- サーバのバージョン： 10.4.28-MariaDB
--- PHP のバージョン: 8.2.4
+-- ホスト: localhost
+-- 生成日時: 2024 年 6 月 06 日 08:58
+-- サーバのバージョン： 11.3.2-MariaDB
+-- PHP のバージョン: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -115,12 +115,12 @@ INSERT INTO `management` (`ID`, `lostID`, `discoveryID`, `changedate`, `changede
 
 CREATE TABLE `user` (
   `ID` int(10) NOT NULL,
-  `attribute` enum('student','teacher','','') NOT NULL,
+  `attribute` enum('student','teacher') NOT NULL,
   `number` varchar(10) NOT NULL,
   `AffiliationID` int(10) NOT NULL,
   `emailaddress` varchar(50) NOT NULL,
   `telephone` varchar(20) NOT NULL,
-  `name` int(10) NOT NULL
+  `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `attribute`, `number`, `AffiliationID`, `emailaddress`, `telephone`, `name`) VALUES
-(1, 'student', 'c3p11111', 1, 'ccccccccc@bunkyo.ac.jp', '000000000', 0);
+(1, 'student', 'c3p11111', 1, 'ccccccccc@bunkyo.ac.jp', '000000000', 'hogehoge');
 
 --
 -- ダンプしたテーブルのインデックス
