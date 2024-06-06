@@ -9,7 +9,7 @@ class data_list
   {
     $this->sql = $arg;
   }
-  function getList()
+  function getListOld()
   {
     $dsn = "mysql:dbname=probc2024;host=localhost";
     $my = new PDO($dsn, 'probc2024', 'probc2024');
@@ -40,7 +40,7 @@ class find_item_list extends data_list
     $sql .= "INNER JOIN 拾得物分類 ON 拾得物.拾得物分類ID=拾得物分類.ID ";
     $sql .= "ORDER BY 拾得物管理状況.変更日時 ASC;";
     $this->setSQL($sql);
-    $arr = $this->getList();
+    $arr = $this->getListOld();
     foreach ($arr as $row)
       $this->dlist[] = new item($row);
   }
@@ -59,7 +59,7 @@ class find_item_detail extends data_list
     $sql .= "INNER JOIN 拾得物分類 ON 拾得物.拾得物分類ID=拾得物分類.ID ";
     $sql .= "WHERE 拾得物.ID={$fid};";
     $this->setSQL($sql);
-    $arr = $this->getList();
+    $arr = $this->getListOld();
     foreach ($arr as $row)
       $this->拾得物[] = new item($row);
     $sql = "SELECT 拾得物管理状況.変更日時, 拾得物管理状況.変更内容, ユーザ.氏名 ";
@@ -68,7 +68,7 @@ class find_item_detail extends data_list
     $sql .= "WHERE 拾得物管理状況.拾得物ID={$fid} ";
     $sql .= "ORDER BY 拾得物管理状況.変更日時 ASC;";
     $this->setSQL($sql);
-    $arr = $this->getList();
+    $arr = $this->getListOld();
     foreach ($arr as $row)
       $this->変更履歴[] = new item($row);
     unset($this->dlist);
@@ -90,7 +90,7 @@ class user_list extends data_list
     $sql .= "FROM ユーザ INNER JOIN 所属 ON ユーザ.所属ID=所属.ID ";
     $sql .= "ORDER BY ユーザID ASC;";
     $this->setSQL($sql);
-    $arr = $this->getList();
+    $arr = $this->getListOld();
     foreach ($arr as $row)
       $this->dlist[] = new item($row);
   }
@@ -104,7 +104,7 @@ class category_list extends data_list
     $sql .= "FROM 拾得物分類 ";
     $sql .= "ORDER BY 拾得物分類ID;";
     $this->setSQL($sql);
-    $arr = $this->getList();
+    $arr = $this->getListOld();
     foreach ($arr as $row)
       $this->dlist[] = new item($row);
   }

@@ -7,14 +7,25 @@
 
 <body>
     <?php
-    include "sqltest.php";
-    include "classes.php";
+    include "php/sqltest.php";
+    include_once "php/classes.php";
     $dbh = connect();
-    $test = new user_list($dbh);
-    foreach ($test->getList($dbh)->fetchAll() as $user)
+    $userlist = new user_list($dbh);
+    $userlistfetch = $userlist->getList($dbh)->fetchAll();
+    foreach ($userlistfetch as $user) {
         foreach ($user as $content)
-            echo $content. " ";
-                ?>
-        </body>
+            echo $content . " ";
+    }
+    echo "<hr>";
+    var_dump($userlist->GetContent());
+    var_dump($userlist->get_user_by_id($dbh, 1));
+    $lostitemlist = new lostitem_list($dbh);
+    foreach ($lostitemlist->getList($dbh)->fetchAll() as $lostitem) {
+        foreach ($lostitem as $content) {
+            echo $content . " "; //TODO: 表示形式変更
+        }
+    }
+    ?>
+</body>
 
-        </html>
+</html>
