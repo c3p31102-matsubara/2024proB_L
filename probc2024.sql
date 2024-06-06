@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2024-06-06 08:26:22
+-- 生成日時: 2024-06-06 09:17:23
 -- サーバのバージョン： 10.4.28-MariaDB
 -- PHP のバージョン: 8.2.4
 
@@ -118,7 +118,7 @@ CREATE TABLE `user` (
   `attribute` enum('student','teacher','','') NOT NULL,
   `number` varchar(10) NOT NULL,
   `AffiliationID` int(10) NOT NULL,
-  `email address` varchar(50) NOT NULL,
+  `emailaddress` varchar(50) NOT NULL,
   `telephone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -126,7 +126,7 @@ CREATE TABLE `user` (
 -- テーブルのデータのダンプ `user`
 --
 
-INSERT INTO `user` (`ID`, `attribute`, `number`, `AffiliationID`, `email address`, `telephone`) VALUES
+INSERT INTO `user` (`ID`, `attribute`, `number`, `AffiliationID`, `emailaddress`, `telephone`) VALUES
 (1, 'student', 'c3p11111', 1, 'ccccccccc@bunkyo.ac.jp', '000000000');
 
 --
