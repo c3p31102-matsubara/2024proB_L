@@ -13,9 +13,14 @@
     $userlist = new user_list($dbh);
     foreach($userlist->GetContents() as $user)
     {
-        $user->sayhello();
+        $user->describe();
     }
     echo "<hr>";
+    $lostitemlist = new lostitem_list($dbh);
+    foreach($lostitemlist->GetContents() as $lostitem)
+    {
+        $lostitem->describe($userlist);
+    }
     ?>
 </body>
 
