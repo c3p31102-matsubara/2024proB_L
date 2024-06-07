@@ -67,6 +67,20 @@ class lostitem_list extends sqlConnecter
             $this->datalist[] = new lostitem($content);
     }
 }
+class discovery_list extends sqlConnecter
+{
+    public function __construct($dbh)
+    {
+        $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM discovery";
+        $array = $this->getList(($dbh));
+        $this->AddContents($array->fetchAll());
+    }
+    public function AddContents($contents): void
+    {
+        foreach ($contents as $content)
+            $this->datalist[] = new discovery($content);
+    }
+}
 class item
 {
     public function __construct($args)
@@ -103,6 +117,29 @@ class user extends item
     }
 }
 class lostitem extends item
+{
+    var int $ID;
+    var int $userID;
+    var string $color;
+    var string $features;
+    var string $category;
+    var string $datetime;
+    var string $place;
+    public function __construct($args)
+    {
+        parent::__construct($args);
+    }
+    public function Get_user(): user
+    {
+        return $GLOBALS["userlist"]->Get_user_by_id($this->userID);
+    }
+    public function describe(): void
+    {
+        echo "this item's color is " . $this->color . "<br>";
+        echo "this item's owners name is " . $this->Get_user()->name;
+    }
+}
+class discovery extends item
 {
     var int $ID;
     var int $userID;
