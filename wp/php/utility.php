@@ -36,8 +36,7 @@ class user_list extends sqlConnecter
     public function __construct($dbh)
     {
         // $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone FROM user;";
-        $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone, name FROM user;";
-        $this->sql = $sql;
+        $this->sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone, name FROM user;";
         $array = $this->getList($dbh);
         $this->AddContents($array->fetchAll());
     }
@@ -58,8 +57,7 @@ class lostitem_list extends sqlConnecter
 {
     public function __construct($dbh)
     {
-        $sql = "SELECT ID, userID, color, features, category, datetime, place FROM lost";
-        $this->sql = $sql;
+        $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM lost";
         $array = $this->getList($dbh);
         $this->Addcontents($array->fetchAll());
     }
@@ -117,13 +115,13 @@ class lostitem extends item
     {
         parent::__construct($args);
     }
-    public function Get_user(user_list $userlist): user
+    public function Get_user(): user
     {
-        return $userlist->Get_user_by_id($this->userID);
+        return $GLOBALS["userlist"]->Get_user_by_id($this->userID);
     }
-    public function describe(user_list $userlist): void
+    public function describe(): void
     {
         echo "this item's color is " . $this->color . "<br>";
-        echo "this item's owners name is " . $this->Get_user($userlist)->name;
+        echo "this item's owners name is " . $this->Get_user()->name;
     }
 }
