@@ -25,8 +25,8 @@
         $management->describe();
     }
     echo "<hr>";
-    echo $userlist->serialize() . "<br>";
-    echo $lostitemlist->serialize() . "<br>";
+    printp($userlist->serialize());
+    printp($lostitemlist->serialize());
     ?>
 </body>
 
