@@ -20,6 +20,13 @@
     foreach ($lostitemlist->GetContents() as $lostitem) {
         $lostitem->describe();
     }
+    echo "<hr>";
+    foreach ($managementlist->GetContents() as $management) {
+        $management->describe();
+    }
+    echo "<hr>";
+    echo $userlist->serialize() . "<br>";
+    echo $lostitemlist->serialize() . "<br>";
     ?>
 </body>
 

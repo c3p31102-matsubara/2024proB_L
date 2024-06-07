@@ -16,7 +16,7 @@ function connect(): PDO
     }
     return $dbh;
 }
-class sqlConnecter
+class sqlConnecter implements JsonSerializable
 {
     var $datalist = array();
     var $sql;
@@ -30,22 +30,30 @@ class sqlConnecter
     {
         return $this->datalist;
     }
+    public function JsonSerialize(): array
+    {
+        return $this->GetContents();
+    }
+    public function serialize(): string
+    {
+        return json_encode($this, JSON_UNESCAPED_UNICODE);
+    }
 }
 class user_list extends sqlConnecter
 {
-    public function __construct($dbh)
+    public function __construct(PDO $dbh)
     {
         // $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone FROM user;";
         $this->sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone, name FROM user;";
         $array = $this->getList($dbh);
         $this->AddContents($array->fetchAll());
     }
-    public function AddContents($contents): void
+    public function AddContents(array $contents): void
     {
         foreach ($contents as $content)
             $this->datalist[] = new user($content);
     }
-    public function Get_user_by_id($target): user|null
+    public function Get_user_by_id(int $target): user|null
     {
         foreach ($this->datalist as $user)
             if ($user->ID == $target)
@@ -55,53 +63,60 @@ class user_list extends sqlConnecter
 }
 class lostitem_list extends sqlConnecter
 {
-    public function __construct($dbh)
+    public function __construct(PDO $dbh)
     {
         $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM lost";
         $array = $this->getList($dbh);
         $this->Addcontents($array->fetchAll());
     }
-    public function AddContents($contents): void
+    public function AddContents(array $contents): void
     {
         foreach ($contents as $content)
             $this->datalist[] = new lostitem($content);
     }
+    public function Get_lostitem_by_id(int $target): lostitem|null
+    {
+        foreach ($this->datalist as $lostitem)
+            if ($lostitem->ID == $target)
+                return $lostitem;
+        return null;
+    }
 }
 class discovery_list extends sqlConnecter
 {
-    public function __construct($dbh)
+    public function __construct(PDO $dbh)
     {
         $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM discovery";
         $array = $this->getList(($dbh));
         $this->AddContents($array->fetchAll());
     }
-    public function AddContents($contents): void
+    public function AddContents(array $contents): void
     {
         foreach ($contents as $content)
             $this->datalist[] = new discovery($content);
     }
+    public function Get_discovery_by_id(int $target): discovery|null
+    {
+        foreach ($this->datalist as $discovery)
+            if ($discovery->ID == $target)
+                return $discovery;
+        return null;
+    }
 }
 class management_list extends sqlConnecter
 {
-    public function __construct($dbh)
+    public function __construct(PDO $dbh)
     {
         $this->sql = "SELECT ID, lostID, discoveryID, changedate, changedetail FROM management";
         $array = $this->getList($dbh);
         $this->AddContents($array->fetchAll());
     }
-    public function AddContents($contents): void
+    public function AddContents(array $contents): void
     {
         foreach ($contents as $content)
             $this->datalist[] = new management($content);
     }
-    public function Get_discovery_by_id($target): management|null
-    {
-        foreach ($this->datalist as $management)
-            if ($management->ID == $target)
-                return $management;
-        return null;
-    }
-    public function Get_lostitem_by_id($target): management|null
+    public function Get_management_by_id(int $target): management|null
     {
         foreach ($this->datalist as $management)
             if ($management->ID == $target)
@@ -109,13 +124,18 @@ class management_list extends sqlConnecter
         return null;
     }
 }
-class item
+abstract class item implements JsonSerializable
 {
-    public function __construct($args)
+    public function __construct(array $args)
     {
         foreach ($args as $key => $value)
             if (!is_numeric($key))
                 $this->$key = $value;
+    }
+    abstract function JsonSerialize(): array;
+    public function serialize(): string
+    {
+        return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
 }
 enum userType: string
@@ -129,11 +149,10 @@ class user extends item
     var userType $attribute;
     var string $number;
     var int $affiliationID;
-    var int $faculty;
     var string $EmailAddress;
     var string $telephone;
     var string $name;
-    public function __construct($args)
+    public function __construct(array $args)
     {
         $this->attribute = userType::from($args["attribute"]);
         unset($args["attribute"]);
@@ -142,6 +161,18 @@ class user extends item
     public function describe(): void
     {
         echo "my name is " . $this->name;
+    }
+    public function JsonSerialize(): array
+    {
+        return array(
+            "ID" => $this->ID,
+            "attribute" => $this->attribute,
+            "number" => $this->attribute,
+            "affiliationID" => $this->affiliationID,
+            "emailAddress" => $this->EmailAddress,
+            "telephone" => $this->telephone,
+            "name" => $this->name
+        );
     }
 }
 class lostitem extends item
@@ -153,7 +184,7 @@ class lostitem extends item
     var string $category;
     var string $datetime;
     var string $place;
-    public function __construct($args)
+    public function __construct(array $args)
     {
         parent::__construct($args);
     }
@@ -165,6 +196,12 @@ class lostitem extends item
     {
         echo "this item's color is " . $this->color . "<br>";
         echo "this item's owners name is " . $this->Get_user()->name;
+    }
+    public function JsonSerialize(): array
+    {
+        return array(
+            "ID" => $this->ID
+        );
     }
 }
 class discovery extends item
@@ -176,7 +213,7 @@ class discovery extends item
     var string $category;
     var string $datetime;
     var string $place;
-    public function __construct($args)
+    public function __construct(array $args)
     {
         parent::__construct($args);
     }
@@ -189,6 +226,12 @@ class discovery extends item
         echo "this item's color is " . $this->color . "<br>";
         echo "this item's owners name is " . $this->Get_user()->name;
     }
+    public function JsonSerialize(): array
+    {
+        return array(
+            "ID" => $this->ID
+        );
+    }
 }
 class management extends item
 {
@@ -197,12 +240,23 @@ class management extends item
     var int $discoveryID;
     var string $changedate;
     var string $changedetail;
-    public function get_Lostitem(): lostitem|null
+    public function get_lostitem(): lostitem|null
     {
-        return $GLOBALS["managementlist"]->Get_lostitem_by_id($this->lostID);
+        return $GLOBALS["lostitemlist"]->Get_lostitem_by_id($this->lostID);
     }
     public function get_Discovery(): lostitem|null
     {
-        return $GLOBALS["managementlist"]->Get_discovery_by_id($this->discoveryID);
+        return $GLOBALS["discoverylist"]->Get_discovery_by_id($this->discoveryID);
+    }
+    public function describe(): void
+    {
+        echo "this case's ID is " . $this->ID . "<br>";
+        echo "this item's lostitem's color is " . $this->get_lostitem()->color . "<br>";
+    }
+    public function JsonSerialize(): array
+    {
+        return array(
+            "ID" => $this->ID
+        );
     }
 }
