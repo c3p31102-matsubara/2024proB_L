@@ -10,11 +10,13 @@
     include_once "php/utility.php";
     $dbh = connect();
     $userlist = new user_list($dbh);
+    $lostitemlist = new lostitem_list($dbh);
+    $discoverylist = new discovery_list($dbh);
+    $managementlist = new management_list($dbh);
     foreach ($userlist->GetContents() as $user) {
         $user->describe();
     }
     echo "<hr>";
-    $lostitemlist = new lostitem_list($dbh);
     foreach ($lostitemlist->GetContents() as $lostitem) {
         $lostitem->describe();
     }

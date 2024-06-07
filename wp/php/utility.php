@@ -81,6 +81,34 @@ class discovery_list extends sqlConnecter
             $this->datalist[] = new discovery($content);
     }
 }
+class management_list extends sqlConnecter
+{
+    public function __construct($dbh)
+    {
+        $this->sql = "SELECT ID, lostID, discoveryID, changedate, changedetail FROM management";
+        $array = $this->getList($dbh);
+        $this->AddContents($array->fetchAll());
+    }
+    public function AddContents($contents): void
+    {
+        foreach ($contents as $content)
+            $this->datalist[] = new management($content);
+    }
+    public function Get_discovery_by_id($target): management|null
+    {
+        foreach ($this->datalist as $management)
+            if ($management->ID == $target)
+                return $management;
+        return null;
+    }
+    public function Get_lostitem_by_id($target): management|null
+    {
+        foreach ($this->datalist as $management)
+            if ($management->ID == $target)
+                return $management;
+        return null;
+    }
+}
 class item
 {
     public function __construct($args)
@@ -160,5 +188,21 @@ class discovery extends item
     {
         echo "this item's color is " . $this->color . "<br>";
         echo "this item's owners name is " . $this->Get_user()->name;
+    }
+}
+class management extends item
+{
+    var int $ID;
+    var int $lostID;
+    var int $discoveryID;
+    var string $changedate;
+    var string $changedetail;
+    public function get_Lostitem(): lostitem|null
+    {
+        return $GLOBALS["managementlist"]->Get_lostitem_by_id($this->lostID);
+    }
+    public function get_Discovery(): lostitem|null
+    {
+        return $GLOBALS["managementlist"]->Get_discovery_by_id($this->discoveryID);
     }
 }
