@@ -7,8 +7,7 @@
 
 <body>
     <?php
-    include "php/sqltest.php";
-    include_once "php/classes.php";
+    include_once "php/utility.php";
     $dbh = connect();
     $userlist = new user_list($dbh);
     foreach($userlist->GetContents() as $user)
