@@ -23,7 +23,7 @@ function printp(string $text): void
     $result .= "</p>";
     echo $result;
 }
-class sqlTable implements JsonSerializable
+abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
     protected $sql;
@@ -48,7 +48,7 @@ class sqlTable implements JsonSerializable
     {
         return $this->GetContents();
     }
-    public function serialize(): string
+    public function serialize(): ?string
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
@@ -242,7 +242,7 @@ class management extends item
     {
         return $GLOBALS["lostitemlist"]->Get_content_by_id($this->lostID);
     }
-    public function get_Discovery(): ?lostitem
+    public function get_Discovery(): ?discovery
     {
         return $GLOBALS["discoverylist"]->Get_content_by_id($this->discoveryID);
     }
