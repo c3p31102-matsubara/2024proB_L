@@ -31,7 +31,7 @@ abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
     protected $sql;
-    public function getList(PDO $dbh): PDOStatement
+    protected function getList(PDO $dbh): PDOStatement
     {
         $dsn_query = $dbh->query($this->sql);
         $dsn_query->setFetchMode(PDO::FETCH_ASSOC);
