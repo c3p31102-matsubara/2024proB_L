@@ -238,7 +238,7 @@ class lostitem extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
-        $result[] = $this->Get_user()->GetContent_recursive();
+        $result["user"] = $this->Get_user()->GetContent_recursive();
         return $result;
     }
 }
@@ -279,7 +279,7 @@ class discovery extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
-        $result[] = $this->Get_user()->GetContent_recursive();
+        $result["user"] = $this->Get_user()->GetContent_recursive();
         return $result;
     }
 }
@@ -316,8 +316,8 @@ class management extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
-        $result[] = $this->get_lostitem()->GetContent_recursive();
-        $result[] = $this->get_Discovery()->GetContent_recursive();
+        $result["lostitem"] = $this->get_lostitem()->GetContent_recursive();
+        $result["discovery"] = $this->get_Discovery()->GetContent_recursive();
         return $result;
     }
 }
