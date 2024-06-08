@@ -27,6 +27,7 @@
     echo "<hr>";
     printp($userlist->serialize());
     printp($lostitemlist->serialize());
+    printp(serialize_to_json($managementlist->GetContent_recursive()));
     ?>
 </body>
 

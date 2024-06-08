@@ -23,6 +23,10 @@ function printp(string $text): void
     $result .= "</p>";
     echo $result;
 }
+function serialize_to_json(mixed $content): ?string
+{
+    return json_encode($content, JSON_UNESCAPED_UNICODE);
+}
 abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
@@ -37,7 +41,7 @@ abstract class sqlTable implements JsonSerializable
     {
         return $this->datalist;
     }
-    public function Get_content_by_id(int $target): mixed
+    public function Getcontent_by_id(int $target): mixed
     {
         foreach ($this->datalist as $user)
             if ($user->ID == $target)
@@ -52,6 +56,7 @@ abstract class sqlTable implements JsonSerializable
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
+    abstract function GetContent_recursive(): mixed;
 }
 class user_list extends sqlTable
 {
@@ -67,6 +72,13 @@ class user_list extends sqlTable
         foreach ($contents as $content)
             $this->datalist[] = new user($content);
     }
+    public function GetContent_recursive(): array
+    {
+        $result = array();
+        foreach ($this->GetContents() as $content)
+            $result[] = $content->GetContent_recursive();
+        return $result;
+    }
 }
 class lostitem_list extends sqlTable
 {
@@ -80,6 +92,13 @@ class lostitem_list extends sqlTable
     {
         foreach ($contents as $content)
             $this->datalist[] = new lostitem($content);
+    }
+    public function GetContent_recursive(): array
+    {
+        $result = array();
+        foreach ($this->GetContents() as $content)
+            $result[] = $content->GetContent_recursive();
+        return $result;
     }
 }
 class discovery_list extends sqlTable
@@ -95,6 +114,13 @@ class discovery_list extends sqlTable
         foreach ($contents as $content)
             $this->datalist[] = new discovery($content);
     }
+    public function GetContent_recursive(): array
+    {
+        $result = array();
+        foreach ($this->GetContents() as $content)
+            $result[] = $content->GetContent_recursive();
+        return $result;
+    }
 }
 class management_list extends sqlTable
 {
@@ -108,6 +134,13 @@ class management_list extends sqlTable
     {
         foreach ($contents as $content)
             $this->datalist[] = new management($content);
+    }
+    public function GetContent_recursive(): array
+    {
+        $result = array();
+        foreach ($this->GetContents() as $content)
+            $result[] = $content->GetContent_recursive();
+        return $result;
     }
 }
 abstract class item implements JsonSerializable
@@ -123,6 +156,7 @@ abstract class item implements JsonSerializable
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
+    abstract function GetContent_recursive(): mixed;
 }
 enum userType: string
 {
@@ -160,6 +194,12 @@ class user extends item
             "name" => $this->name
         );
     }
+    public function GetContent_recursive(): array
+    {
+        $result = $this->JsonSerialize();
+        //TODO: affiliationと接続
+        return $result;
+    }
 }
 class lostitem extends item
 {
@@ -176,7 +216,7 @@ class lostitem extends item
     }
     public function Get_user(): ?user
     {
-        return $GLOBALS["userlist"]->Get_content_by_id($this->userID);
+        return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
     }
     public function describe(): void
     {
@@ -194,6 +234,12 @@ class lostitem extends item
             "datetime" => $this->datetime,
             "place" => $this->place,
         );
+    }
+    public function GetContent_recursive(): array
+    {
+        $result = $this->JsonSerialize();
+        $result[] = $this->Get_user()->GetContent_recursive();
+        return $result;
     }
 }
 class discovery extends item
@@ -211,7 +257,7 @@ class discovery extends item
     }
     public function Get_user(): ?user
     {
-        return $GLOBALS["userlist"]->Get_content_by_id($this->userID);
+        return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
     }
     public function describe(): void
     {
@@ -230,6 +276,12 @@ class discovery extends item
             "place" => $this->place,
         );
     }
+    public function GetContent_recursive(): array
+    {
+        $result = $this->JsonSerialize();
+        $result[] = $this->Get_user()->GetContent_recursive();
+        return $result;
+    }
 }
 class management extends item
 {
@@ -240,11 +292,11 @@ class management extends item
     var string $changedetail;
     public function get_lostitem(): ?lostitem
     {
-        return $GLOBALS["lostitemlist"]->Get_content_by_id($this->lostID);
+        return $GLOBALS["lostitemlist"]->Getcontent_by_id($this->lostID);
     }
     public function get_Discovery(): ?discovery
     {
-        return $GLOBALS["discoverylist"]->Get_content_by_id($this->discoveryID);
+        return $GLOBALS["discoverylist"]->Getcontent_by_id($this->discoveryID);
     }
     public function describe(): void
     {
@@ -260,5 +312,12 @@ class management extends item
             "changedate" => $this->changedate,
             "changedetail" => $this->changedetail,
         );
+    }
+    public function GetContent_recursive(): array
+    {
+        $result = $this->JsonSerialize();
+        $result[] = $this->get_lostitem()->GetContent_recursive();
+        $result[] = $this->get_Discovery()->GetContent_recursive();
+        return $result;
     }
 }
