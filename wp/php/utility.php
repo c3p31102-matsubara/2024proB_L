@@ -25,8 +25,8 @@ function printp(string $text): void
 }
 class sqlTable implements JsonSerializable
 {
-    var $datalist = array();
-    var $sql;
+    protected $datalist = array();
+    protected $sql;
     public function getList(PDO $dbh): PDOStatement
     {
         $dsn_query = $dbh->query($this->sql);
