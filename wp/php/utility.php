@@ -27,6 +27,12 @@ abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
     protected $sql;
+    public function Update(PDO $dbh): void
+    {
+        $this->datalist = array();
+        $array = $this->getList($dbh);
+        $this->AddContents($array->fetchAll());
+    }
     protected function getList(PDO $dbh): PDOStatement
     {
         $dsn_query = $dbh->query($this->sql);
@@ -64,8 +70,7 @@ class user_list extends sqlTable
     {
         // $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone FROM user;";
         $this->sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone, name FROM user;";
-        $array = $this->getList($dbh);
-        $this->AddContents($array->fetchAll());
+        $this->Update($dbh);
     }
     public function AddContents(array $contents): void
     {
@@ -85,8 +90,7 @@ class lostitem_list extends sqlTable
     public function __construct(PDO $dbh)
     {
         $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM lost";
-        $array = $this->getList($dbh);
-        $this->Addcontents($array->fetchAll());
+        $this->Update($dbh);
     }
     public function AddContents(array $contents): void
     {
@@ -106,8 +110,7 @@ class discovery_list extends sqlTable
     public function __construct(PDO $dbh)
     {
         $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM discovery";
-        $array = $this->getList(($dbh));
-        $this->AddContents($array->fetchAll());
+        $this->Update($dbh);
     }
     public function AddContents(array $contents): void
     {
@@ -127,8 +130,7 @@ class management_list extends sqlTable
     public function __construct(PDO $dbh)
     {
         $this->sql = "SELECT ID, lostID, discoveryID, changedate, changedetail FROM management";
-        $array = $this->getList($dbh);
-        $this->AddContents($array->fetchAll());
+        $this->Update($dbh);
     }
     public function AddContents(array $contents): void
     {
