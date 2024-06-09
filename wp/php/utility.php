@@ -30,15 +30,11 @@ abstract class sqlTable implements JsonSerializable
     public function Update(PDO $dbh): void
     {
         $this->datalist = array();
-        $array = $this->getList($dbh);
-        $this->AddContents($array->fetchAll());
-    }
-    protected function getList(PDO $dbh): PDOStatement
-    {
         $dsn_query = $dbh->query($this->sql);
         $dsn_query->setFetchMode(PDO::FETCH_ASSOC);
-        return $dsn_query;
+        $this->AddContents($dsn_query->fetchAll());
     }
+    abstract function AddContents(array $contents): void;
     public function GetContents(): array
     {
         return $this->datalist;
