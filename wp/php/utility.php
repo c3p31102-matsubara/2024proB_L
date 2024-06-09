@@ -23,10 +23,6 @@ function printp(string $text): void
     $result .= "</p>";
     echo $result;
 }
-function serialize_to_json(mixed $content): ?string
-{
-    return json_encode($content, JSON_UNESCAPED_UNICODE);
-}
 abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
@@ -52,11 +48,15 @@ abstract class sqlTable implements JsonSerializable
     {
         return $this->GetContents();
     }
-    public function serialize(): ?string
+    public function Serialize(): ?string
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
     abstract function GetContent_recursive(): mixed;
+    public function Serialize_recursive()
+    {
+        return json_encode($this->GetContent_recursive(), JSON_UNESCAPED_UNICODE);
+    }
 }
 class user_list extends sqlTable
 {
@@ -152,11 +152,15 @@ abstract class item implements JsonSerializable
                 $this->$key = $value;
     }
     abstract function JsonSerialize(): array;
-    public function serialize(): ?string
+    public function Serialize(): ?string
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
     abstract function GetContent_recursive(): mixed;
+    public function Serialize_recursive()
+    {
+        return json_encode($this->GetContent_recursive(), JSON_UNESCAPED_UNICODE);
+    }
 }
 enum userType: string
 {
@@ -178,7 +182,7 @@ class user extends item
         unset($args["attribute"]);
         parent::__construct($args);
     }
-    public function describe(): void
+    public function Describe(): void
     {
         echo "my name is " . $this->name;
     }
@@ -218,7 +222,7 @@ class lostitem extends item
     {
         return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
     }
-    public function describe(): void
+    public function Describe(): void
     {
         echo "this item's color is " . $this->color . "<br>";
         echo "this item's owners name is " . $this->Get_user()->name;
@@ -259,7 +263,7 @@ class discovery extends item
     {
         return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
     }
-    public function describe(): void
+    public function Describe(): void
     {
         echo "this item's color is " . $this->color . "<br>";
         echo "this item's owners name is " . $this->Get_user()->name;
@@ -298,7 +302,7 @@ class management extends item
     {
         return $GLOBALS["discoverylist"]->Getcontent_by_id($this->discoveryID);
     }
-    public function describe(): void
+    public function Describe(): void
     {
         echo "this case's ID is " . $this->ID . "<br>";
         echo "this item's lostitem's color is " . $this->get_lostitem()->color . "<br>";

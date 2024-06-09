@@ -14,20 +14,22 @@
     $discoverylist = new discovery_list($dbh);
     $managementlist = new management_list($dbh);
     foreach ($userlist->GetContents() as $user) {
-        $user->describe();
+        $user->Describe();
     }
     echo "<hr>";
     foreach ($lostitemlist->GetContents() as $lostitem) {
-        $lostitem->describe();
+        $lostitem->Describe();
     }
     echo "<hr>";
     foreach ($managementlist->GetContents() as $management) {
-        $management->describe();
+        $management->Describe();
     }
     echo "<hr>";
-    printp($userlist->serialize());
-    printp($lostitemlist->serialize());
-    printp(serialize_to_json($managementlist->GetContent_recursive()));
+    printp($userlist->Serialize());
+    echo "<hr>";
+    printp($lostitemlist->Serialize());
+    echo "<hr>";
+    printp($managementlist->Serialize_recursive());
     ?>
 </body>
 
