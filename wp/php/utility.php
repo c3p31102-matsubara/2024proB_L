@@ -52,8 +52,8 @@ abstract class sqlTable implements JsonSerializable
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
-    abstract function GetContent_recursive(): mixed;
-    public function Serialize_recursive()
+    abstract function GetContent_recursive(): array;
+    public function Serialize_recursive(): ?string
     {
         return json_encode($this->GetContent_recursive(), JSON_UNESCAPED_UNICODE);
     }
@@ -156,8 +156,8 @@ abstract class item implements JsonSerializable
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
-    abstract function GetContent_recursive(): mixed;
-    public function Serialize_recursive()
+    abstract function GetContent_recursive(): array;
+    public function Serialize_recursive(): ?string
     {
         return json_encode($this->GetContent_recursive(), JSON_UNESCAPED_UNICODE);
     }
