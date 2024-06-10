@@ -201,6 +201,10 @@ class user extends item
     {
         echo "my name is " . $this->name;
     }
+    public function Get_affiliation(): affiliation
+    {
+        return $GLOBALS["affiliationlist"]->GetContent_by_id($this->affiliationID);
+    }
     public function JsonSerialize(): array
     {
         return array(
@@ -258,6 +262,7 @@ class lostitem extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
+        unset($result["userID"]);
         $result["user"] = $this->Get_user()->GetContent_recursive();
         return $result;
     }
@@ -299,6 +304,7 @@ class discovery extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
+        unset($result["userID"]);
         $result["user"] = $this->Get_user()->GetContent_recursive();
         return $result;
     }
@@ -336,6 +342,8 @@ class management extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
+        unset($result["lostID"]);
+        unset($result["discoveryID"]);
         $result["lostitem"] = $this->get_lostitem()->GetContent_recursive();
         $result["discovery"] = $this->get_Discovery()->GetContent_recursive();
         return $result;
