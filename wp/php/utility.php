@@ -141,6 +141,23 @@ class management_list extends sqlTable
         return $result;
     }
 }
+class affiliation_list extends sqlTable
+{
+    public function __construct(PDO $dbh)
+    {
+        $this->sql = "SELECT ID, Faculty, department FROM affiliation";
+        $this->Update($dbh);
+    }
+    public function AddContents(array $contents): void
+    {
+        foreach ($contents as $content)
+            $this->datalist[] = new affiliation($content);
+    }
+    public function GetContent_recursive(): array
+    {
+        return $this->GetContents();
+    }
+}
 abstract class item implements JsonSerializable
 {
     public function __construct(array $args)
@@ -199,7 +216,8 @@ class user extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
-        //TODO: affiliationと接続
+        $result["affiliation"] = $this->Get_affiliation();
+        unset($result["affiliationID"]);
         return $result;
     }
 }
@@ -320,6 +338,25 @@ class management extends item
         $result = $this->JsonSerialize();
         $result["lostitem"] = $this->get_lostitem()->GetContent_recursive();
         $result["discovery"] = $this->get_Discovery()->GetContent_recursive();
+        return $result;
+    }
+}
+class affiliation extends item
+{
+    var $ID;
+    var $Faculty;
+    var $department;
+    public function JsonSerialize(): array
+    {
+        return array(
+            "ID" => $this->ID,
+            "faculty" => $this->Faculty,
+            "department" => $this->department
+        );
+    }
+    public function GetContent_recursive(): array
+    {
+        $result = $this->JsonSerialize();
         return $result;
     }
 }
