@@ -41,9 +41,9 @@ abstract class sqlTable implements JsonSerializable
     }
     public function Getcontent_by_id(int $target): mixed
     {
-        foreach ($this->datalist as $user)
-            if ($user->ID == $target)
-                return $user;
+        foreach ($this->datalist as $content)
+            if ($content->ID == $target)
+                return $content;
         return null;
     }
     public function JsonSerialize(): array
