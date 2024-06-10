@@ -39,7 +39,7 @@ abstract class sqlTable implements JsonSerializable
     {
         return $this->datalist;
     }
-    public function Getcontent_by_id(int $target): mixed
+    public function GetContent_by_id(int $target): mixed
     {
         foreach ($this->datalist as $content)
             if ($content->ID == $target)
@@ -218,7 +218,7 @@ class lostitem extends item
     }
     public function Get_user(): ?user
     {
-        return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
+        return $GLOBALS["userlist"]->GetContent_by_id($this->userID);
     }
     public function Describe(): void
     {
@@ -259,7 +259,7 @@ class discovery extends item
     }
     public function Get_user(): ?user
     {
-        return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
+        return $GLOBALS["userlist"]->GetContent_by_id($this->userID);
     }
     public function Describe(): void
     {
@@ -294,11 +294,11 @@ class management extends item
     var string $changedetail;
     public function get_lostitem(): ?lostitem
     {
-        return $GLOBALS["lostitemlist"]->Getcontent_by_id($this->lostID);
+        return $GLOBALS["lostitemlist"]->GetContent_by_id($this->lostID);
     }
     public function get_Discovery(): ?discovery
     {
-        return $GLOBALS["discoverylist"]->Getcontent_by_id($this->discoveryID);
+        return $GLOBALS["discoverylist"]->GetContent_by_id($this->discoveryID);
     }
     public function Describe(): void
     {
