@@ -8,8 +8,8 @@
 <body>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="module">
-        import { Post, dataType } from "./js/accessor.js";
-        let userlist = await Post(dataType.managdement, false, 1);
+        import { Post, dataType } from "./js/APIaccessor.js";
+        let userlist = await Post(dataType.managementlist, false, 1);
         console.log(userlist);
     </script>
 </body>
