@@ -124,3 +124,11 @@ padding: 50px 20px;
 .item{
   background-color: #f9f8f4 ;
 }
+
+/* フッター */
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
