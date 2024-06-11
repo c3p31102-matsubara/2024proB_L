@@ -11,6 +11,7 @@ function connect(): PDO
     try {
         $dbh = new PDO('mysql:host=' . db_host . ";dbname=" . db_name, db_user, db_password, $option);
     } catch (PDOException $e) {
+        header('Content-Type: text/plain; charset=UTF-8', true, 500);
         echo $e->getMessage();
         exit;
     }

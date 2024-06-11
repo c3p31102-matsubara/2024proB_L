@@ -48,4 +48,8 @@ header("Content-Type: application/json; charset=utf-8");
 if ($req_recr)
     echo $obj->Serialize_recursive();
 else
-    echo $obj->Serialize();
+    if (is_null($obj)) {
+        echo "{code:404}";
+        exit;
+    }
+echo $obj->Serialize();
