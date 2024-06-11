@@ -7,12 +7,12 @@ const APIURL = "/php/API.php";
  * @param {number} id 
  * @returns 
  */
-export async function Post(data, recursive, id = 1) {
+export async function getjson(data, recursive, id = 1) {
     if (!(Object.values(dataType).includes(data))) {
         console.error("called dataType is undefined");
         return null;
     }
-    function getjson() {
+    function post() {
         return jQuery.getJSON(APIURL, {
             type: "json",
             data: data,
@@ -20,14 +20,14 @@ export async function Post(data, recursive, id = 1) {
             id: id
         })
     };
-    getjson().done(function (response) {
+    post().done(function (response) {
         return response;
     }
     )
-    getjson().fail(function (response) {
+    post().fail(function (response) {
         return response;
     })
-    var result = getjson();
+    var result = post();
     return result;
 }
 export const dataType = Object.freeze(
