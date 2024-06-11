@@ -1,11 +1,91 @@
-/* ヘッダー */
+/* 全体 */
+@charset "utf-8";
 
-.navbar-custom {
-	background-color: #6c8650; 
+body{
+  font-family: M PLUS Rounded\ 1c, Hiragino Kaku Gothic ProN, ヒラギノ角ゴ ProN W3, meiryo, メイリオ, sans-serif;
+  /* background-color: #f9f8f4; */
 }
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.873); /* 必要に応じて背景色を追加 */
+}
+
+.navbar {
+  padding: 0.5rem 1rem; /* パディングを調整して高さを小さくする */
+}
+
+.navbar-brand {
+  font-size: 1.2rem; /* 必要に応じてフォントサイズを調整 */
+  padding: 0.25rem 0; /* パディングを調整して高さを小さくする */
+}
+
+.navbar-nav .nav-item .nav-link {
+  padding: 0.5rem 0.75rem; /* パディングを調整して高さを小さくする */
+}
+
+.collapse.navbar-collapse {
+  margin-top: 0; /* マージンをリセット */
+}
+
+.gnavi {
+  display: flex;
+  flex-wrap: wrap; /* スマホ表示折り返し用なのでPCのみなら不要 */
+  margin: 0;
+  list-style: none;
+}
+
+.gnavi li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  position: relative; /* 線の基点とするためrelativeを指定 */
+}
+
+/* 下の線 */
+.gnavi li a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #2db0e3;
+  transition: width 0.3s linear; /* 左から右に出す */
+}
+
+/* hover時の線の動き */
+.gnavi li a:hover::before {
+  width: 100%;
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+/* .lead{
+padding: 50px 20px;
+} */
+
+
+/* ベースカラー 　#2DB0E3*/
+/* 背景カラー　#f9f8f4 */
+
+/* .navbar-custom {
+	background-color:{ #6c8650; 
+} */
 .navbar-nav .nav-link:hover {
 	color: #393636 !important; 
 }
+
+.navbar-brand{
+  color:#2db0e3;
+}
+
+
+/* ボタン */
 .round-button {
   display: flex;
   justify-content: center;
@@ -13,11 +93,34 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #6c8650;
+  background-color: #2db0e3;
   color: white;
   text-decoration: none;
 }
-
+.c-linkbtn {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #2db0e3;
+  border-radius: 100vw;
+  color: #2db0e3;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 700;
+  height: 72px;
+  max-width: 320px;
+  padding-left: 24px;
+  padding-right: 60px;
+  position: relative;
+  width: 100%;
+}
 .center-icon {
   font-size: 24px;
+}
+
+.item{
+  background-color: #f9f8f4 ;
 }
