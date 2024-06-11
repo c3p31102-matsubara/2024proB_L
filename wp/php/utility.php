@@ -210,7 +210,7 @@ class user extends item
         return array(
             "ID" => $this->ID,
             "attribute" => $this->attribute,
-            "number" => $this->attribute,
+            "number" => $this->number,
             "affiliationID" => $this->affiliationID,
             "emailAddress" => $this->EmailAddress,
             "telephone" => $this->telephone,
