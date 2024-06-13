@@ -11,6 +11,7 @@ function connect(): PDO
     try {
         $dbh = new PDO('mysql:host=' . db_host . ";dbname=" . db_name, db_user, db_password, $option);
     } catch (PDOException $e) {
+        header('Content-Type: text/plain; charset=UTF-8', true, 500);
         echo $e->getMessage();
         exit;
     }
@@ -26,24 +27,33 @@ function printp(string $text): void
 abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
-    protected $sql;
+    protected $columns;
+    protected $table_name;
     public function Update(PDO $dbh): void
     {
         $this->datalist = array();
-        $dsn_query = $dbh->query($this->sql);
+        $dsn_query = $dbh->query($this->sql_Select());
         $dsn_query->setFetchMode(PDO::FETCH_ASSOC);
         $this->AddContents($dsn_query->fetchAll());
+    }
+    public function sql_Select(): string
+    {
+        return "SELECT " . $this->columns . " FROM " . $this->table_name;
+    }
+    public function sql_insert(): string
+    {
+        return "INSERT INTO " . $this->table_name . " (" . $this->columns . ") VALUES (" . str_repeat("?,", substr_count($this->columns, ",")) . "?);";
     }
     abstract function AddContents(array $contents): void;
     public function GetContents(): array
     {
         return $this->datalist;
     }
-    public function Getcontent_by_id(int $target): mixed
+    public function GetContent_by_id(int $target): mixed
     {
-        foreach ($this->datalist as $user)
-            if ($user->ID == $target)
-                return $user;
+        foreach ($this->datalist as $content)
+            if ($content->ID == $target)
+                return $content;
         return null;
     }
     public function JsonSerialize(): array
@@ -65,7 +75,8 @@ class user_list extends sqlTable
     public function __construct(PDO $dbh)
     {
         // $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone FROM user;";
-        $this->sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone, name FROM user;";
+        $this->columns = "ID, attribute, number, affiliationID, EmailAddress, telephone, name";
+        $this->table_name = "user";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -85,7 +96,8 @@ class lostitem_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM lost";
+        $this->columns = "ID, userID, color, features, category, datetime, place";
+        $this->table_name = "lost";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -105,7 +117,8 @@ class discovery_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM discovery";
+        $this->columns = "ID, userID, color, features, category, datetime, place";
+        $this->table_name = "discovery";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -125,7 +138,8 @@ class management_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, lostID, discoveryID, changedate, changedetail FROM management";
+        $this->columns = "ID, lostID, discoveryID, changedate, changedetail";
+        $this->table_name = "management";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -139,6 +153,24 @@ class management_list extends sqlTable
         foreach ($this->GetContents() as $content)
             $result[] = $content->GetContent_recursive();
         return $result;
+    }
+}
+class affiliation_list extends sqlTable
+{
+    public function __construct(PDO $dbh)
+    {
+        $this->columns = "ID, Faculty, department";
+        $this->table_name = "affiliation";
+        $this->Update($dbh);
+    }
+    public function AddContents(array $contents): void
+    {
+        foreach ($contents as $content)
+            $this->datalist[] = new affiliation($content);
+    }
+    public function GetContent_recursive(): array
+    {
+        return $this->GetContents();
     }
 }
 abstract class item implements JsonSerializable
@@ -184,12 +216,16 @@ class user extends item
     {
         echo "my name is " . $this->name;
     }
+    public function Get_affiliation(): affiliation
+    {
+        return $GLOBALS["affiliationlist"]->GetContent_by_id($this->affiliationID);
+    }
     public function JsonSerialize(): array
     {
         return array(
             "ID" => $this->ID,
             "attribute" => $this->attribute,
-            "number" => $this->attribute,
+            "number" => $this->number,
             "affiliationID" => $this->affiliationID,
             "emailAddress" => $this->EmailAddress,
             "telephone" => $this->telephone,
@@ -199,7 +235,8 @@ class user extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
-        //TODO: affiliationと接続
+        $result["affiliation"] = $this->Get_affiliation();
+        unset($result["affiliationID"]);
         return $result;
     }
 }
@@ -218,7 +255,7 @@ class lostitem extends item
     }
     public function Get_user(): ?user
     {
-        return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
+        return $GLOBALS["userlist"]->GetContent_by_id($this->userID);
     }
     public function Describe(): void
     {
@@ -240,6 +277,7 @@ class lostitem extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
+        unset($result["userID"]);
         $result["user"] = $this->Get_user()->GetContent_recursive();
         return $result;
     }
@@ -259,7 +297,7 @@ class discovery extends item
     }
     public function Get_user(): ?user
     {
-        return $GLOBALS["userlist"]->Getcontent_by_id($this->userID);
+        return $GLOBALS["userlist"]->GetContent_by_id($this->userID);
     }
     public function Describe(): void
     {
@@ -281,6 +319,7 @@ class discovery extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
+        unset($result["userID"]);
         $result["user"] = $this->Get_user()->GetContent_recursive();
         return $result;
     }
@@ -294,11 +333,11 @@ class management extends item
     var string $changedetail;
     public function get_lostitem(): ?lostitem
     {
-        return $GLOBALS["lostitemlist"]->Getcontent_by_id($this->lostID);
+        return $GLOBALS["lostitemlist"]->GetContent_by_id($this->lostID);
     }
     public function get_Discovery(): ?discovery
     {
-        return $GLOBALS["discoverylist"]->Getcontent_by_id($this->discoveryID);
+        return $GLOBALS["discoverylist"]->GetContent_by_id($this->discoveryID);
     }
     public function Describe(): void
     {
@@ -318,8 +357,29 @@ class management extends item
     public function GetContent_recursive(): array
     {
         $result = $this->JsonSerialize();
+        unset($result["lostID"]);
+        unset($result["discoveryID"]);
         $result["lostitem"] = $this->get_lostitem()->GetContent_recursive();
         $result["discovery"] = $this->get_Discovery()->GetContent_recursive();
+        return $result;
+    }
+}
+class affiliation extends item
+{
+    var $ID;
+    var $Faculty;
+    var $department;
+    public function JsonSerialize(): array
+    {
+        return array(
+            "ID" => $this->ID,
+            "faculty" => $this->Faculty,
+            "department" => $this->department
+        );
+    }
+    public function GetContent_recursive(): array
+    {
+        $result = $this->JsonSerialize();
         return $result;
     }
 }

@@ -2,3 +2,4 @@ wp/phpMyAdmin
 .vscode
 test*
 *.DS_Store
+node_modules

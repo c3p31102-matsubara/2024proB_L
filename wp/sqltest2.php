@@ -13,6 +13,7 @@
     $lostitemlist = new lostitem_list($dbh);
     $discoverylist = new discovery_list($dbh);
     $managementlist = new management_list($dbh);
+    $affiliationlist = new affiliation_list($dbh);
     foreach ($userlist->GetContents() as $user) {
         $user->Describe();
     }
@@ -30,6 +31,7 @@
     printp($lostitemlist->Serialize());
     echo "<hr>";
     printp($managementlist->Serialize_recursive());
+    printp($managementlist->sql_insert());
     ?>
 </body>
 

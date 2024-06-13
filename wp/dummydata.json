@@ -1,13 +1,10 @@
 [
     {
         "ID": 1,
-        "lostID": 1,
-        "discoveryID": 1,
         "changedate": "2024-06-08 15:19:37.000000",
         "changedetail": "いろいろ",
         "lostitem": {
             "ID": 1,
-            "userID": 1,
             "color": "赤",
             "features": "赤いバック",
             "category": "バック",
@@ -16,16 +13,19 @@
             "user": {
                 "ID": 1,
                 "attribute": "student",
-                "number": "student",
-                "affiliationID": 1,
+                "number": "c3p11111",
                 "emailAddress": "ccccccccc@bunkyo.ac.jp",
                 "telephone": "000000000",
-                "name": "hogehoge"
+                "name": "hogehoge",
+                "affiliation": {
+                    "ID": 1,
+                    "faculty": "情報学部",
+                    "department": "情報システム学科"
+                }
             }
         },
         "discovery": {
             "ID": 1,
-            "userID": 1,
             "color": "赤",
             "features": "青いバック",
             "category": "バック",
@@ -34,11 +34,15 @@
             "user": {
                 "ID": 1,
                 "attribute": "student",
-                "number": "student",
-                "affiliationID": 1,
+                "number": "c3p11111",
                 "emailAddress": "ccccccccc@bunkyo.ac.jp",
                 "telephone": "000000000",
-                "name": "hogehoge"
+                "name": "hogehoge",
+                "affiliation": {
+                    "ID": 1,
+                    "faculty": "情報学部",
+                    "department": "情報システム学科"
+                }
             }
         }
     }
