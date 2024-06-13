@@ -7,6 +7,10 @@ $lostitemlist = new lostitem_list($dbh);
 $discoverylist = new discovery_list($dbh);
 $managementlist = new management_list($dbh);
 $affiliationlist = new affiliation_list($dbh);
+function output(string $status, $body = null)
+{
+    echo json_encode(array("status" => $status, "body" => $body));
+}
 enum dataType: string
 {
     case userlist = "user_l";
@@ -29,7 +33,7 @@ if ($req_type == "json") {
     if (isset($_REQUEST["data"]))
         $req_target = dataType::from($_REQUEST["data"]);
     else
-        echo json_encode([]);
+        output("fail", "data wasn't specified");
     if (isset($_REQUEST["id"]))
         $req_id = $_REQUEST["id"];
     else
@@ -52,12 +56,13 @@ if ($req_type == "json") {
     };
     header("Content-Type: application/json; charset=utf-8");
     if ($req_recr)
-        echo $obj->Serialize_recursive();
+        output("success", $obj->GetContent_recursive());
     else
-        echo $obj->Serialize();
+        output("success", $obj->GetContents());
+    exit;
 } elseif ($req_type == "insert") {
     if (!isset($_REQUEST["target"])) {
-        echo json_encode("error2-1");
+        output("fail", "target wasn't specified");
         exit;
     }
     $req_target = match (dataType::from($_REQUEST["target"])) {
@@ -68,7 +73,7 @@ if ($req_type == "json") {
         dataType::affiliationlist => $obj = $affiliationlist,
     };
     if (!isset($_REQUEST["data"])) {
-        echo json_encode("error2-2");
+        output("fail", "data was empty");
         exit;
     }
     $req_data = $_REQUEST["data"];
@@ -78,15 +83,9 @@ if ($req_type == "json") {
         $stmt = $dbh->prepare($sql);
         $stmt->execute($req_data);
         $dbh->commit();
-        $status = array(
-            "status" => "success"
-        );
     } catch (PDOException $e) {
         file_put_contents("./log.txt", $e);
         $dbh->rollBack();
-        $status = array(
-            "status" => "fail"
-        );
     }
-    echo json_encode($status);
+    output("success", null);
 }
