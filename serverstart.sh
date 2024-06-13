@@ -1,7 +1,7 @@
 #!/bin/sh
 httpd_PSID=$(pstree | grep -e "httpd" | grep -e "=" | grep -v "grep" | awk '{print $2}' | sed 's/0*\([0-9]*[0-9]$\)/\1/g')
 if [[ -z $httpd_PSID ]]; then
-    httpd -f /Users/dynamiteopanty/Documents/Programming/2024proB_L/httpd.conf &
+    httpd -d ./ -f httpd.conf &
     echo server is starting to run
 else
     echo "httpd was found already running"
