@@ -1,6 +1,12 @@
 <?php
 
 include_once "utility.php";
+$dbh = connect();
+$userlist = new user_list($dbh);
+$lostitemlist = new lostitem_list($dbh);
+$discoverylist = new discovery_list($dbh);
+$managementlist = new management_list($dbh);
+$affiliationlist = new affiliation_list($dbh);
 enum dataType: string
 {
     case userlist = "user_l";
@@ -23,7 +29,7 @@ if ($req_type == "json") {
     if (isset($_REQUEST["data"]))
         $req_target = dataType::from($_REQUEST["data"]);
     else
-        echo [];
+        echo json_encode([]);
     if (isset($_REQUEST["id"]))
         $req_id = $_REQUEST["id"];
     else
@@ -32,12 +38,6 @@ if ($req_type == "json") {
         $req_recr = $_REQUEST["recursive"];
     else
         $req_recr = false;
-    $dbh = connect();
-    $userlist = new user_list($dbh);
-    $lostitemlist = new lostitem_list($dbh);
-    $discoverylist = new discovery_list($dbh);
-    $managementlist = new management_list($dbh);
-    $affiliationlist = new affiliation_list($dbh);
     match ($req_target) {
         dataType::userlist => $obj = $userlist,
         dataType::lostitemlist => $obj = $lostitemlist,
@@ -55,4 +55,16 @@ if ($req_type == "json") {
         echo $obj->Serialize_recursive();
     else
         echo $obj->Serialize();
+} elseif ($req_type == "insert") {
+    if (!isset($_REQUEST["target"])) {
+        echo json_encode("error2-1");
+        exit;
+    }
+    $req_target = dataType::from($_REQUEST["target"]);
+    if (!isset($_REQUEST["data"])) {
+        echo json_encode("error2-2");
+        exit;
+    }
+    // $req_data = $_REQUEST["data"];
+    echo json_encode("hoge");
 }

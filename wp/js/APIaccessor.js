@@ -42,6 +42,13 @@ export async function insert(table, data) {
             data: data
         })
     }
+    post().done(function (response) {
+        return response;
+    })
+    post().fail(function (response) {
+        return response;
+    })
+    return post();
 }
 export const dataType = Object.freeze(
     {
