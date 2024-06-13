@@ -30,6 +30,19 @@ export async function getjson(data, recursive, id = 1) {
     var result = post();
     return result;
 }
+export async function insert(table, data) {
+    if (!Object.values(dataType).includes(table)) {
+        console.error("called detaType is undefined");
+        return null;
+    }
+    function post() {
+        return jQuery.getJSON(APIURL, {
+            type: "insert",
+            target: table,
+            data: data
+        })
+    }
+}
 export const dataType = Object.freeze(
     {
         userlist: "user_l",

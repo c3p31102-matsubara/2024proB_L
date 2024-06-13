@@ -27,13 +27,22 @@ function printp(string $text): void
 abstract class sqlTable implements JsonSerializable
 {
     protected $datalist = array();
-    protected $sql;
+    protected $columns;
+    protected $table_name;
     public function Update(PDO $dbh): void
     {
         $this->datalist = array();
-        $dsn_query = $dbh->query($this->sql);
+        $dsn_query = $dbh->query($this->sql_Select());
         $dsn_query->setFetchMode(PDO::FETCH_ASSOC);
         $this->AddContents($dsn_query->fetchAll());
+    }
+    public function sql_Select(): string
+    {
+        return "SELECT " . $this->columns . " FROM " . $this->table_name;
+    }
+    public function sql_insert(): string
+    {
+        return "INSERT INTO " . $this->table_name . " (" . $this->columns . ") VALUES (" . str_repeat("?.", substr_count($this->columns, ",")) . "?);";
     }
     abstract function AddContents(array $contents): void;
     public function GetContents(): array
@@ -66,7 +75,8 @@ class user_list extends sqlTable
     public function __construct(PDO $dbh)
     {
         // $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone FROM user;";
-        $this->sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone, name FROM user;";
+        $this->columns = "ID, attribute, affiliationID, EmailAddress, number, telephone, name";
+        $this->table_name = "user";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -86,7 +96,8 @@ class lostitem_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM lost";
+        $this->columns = "ID, userID, color, features, category, datetime, place";
+        $this->table_name = "lost";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -106,7 +117,8 @@ class discovery_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, userID, color, features, category, datetime, place FROM discovery";
+        $this->columns = "ID, userID, color, features, category, datetime, place";
+        $this->table_name = "discovery";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -126,7 +138,8 @@ class management_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, lostID, discoveryID, changedate, changedetail FROM management";
+        $this->columns = "ID, lostID, discoveryID, changedate, changedetail";
+        $this->table_name = "management";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void
@@ -146,7 +159,8 @@ class affiliation_list extends sqlTable
 {
     public function __construct(PDO $dbh)
     {
-        $this->sql = "SELECT ID, Faculty, department FROM affiliation";
+        $this->columns = "ID, Faculty, department";
+        $this->table_name = "affiliation";
         $this->Update($dbh);
     }
     public function AddContents(array $contents): void

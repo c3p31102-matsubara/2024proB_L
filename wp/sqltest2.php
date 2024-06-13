@@ -31,6 +31,7 @@
     printp($lostitemlist->Serialize());
     echo "<hr>";
     printp($managementlist->Serialize_recursive());
+    printp($managementlist->sql_insert());
     ?>
 </body>
 
