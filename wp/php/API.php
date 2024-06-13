@@ -60,11 +60,33 @@ if ($req_type == "json") {
         echo json_encode("error2-1");
         exit;
     }
-    $req_target = dataType::from($_REQUEST["target"]);
+    $req_target = match (dataType::from($_REQUEST["target"])) {
+        dataType::userlist => $obj = $userlist,
+        dataType::lostitemlist => $obj = $lostitemlist,
+        dataType::discoverylist => $obj = $discoverylist,
+        dataType::managementlist => $obj = $managementlist,
+        dataType::affiliationlist => $obj = $affiliationlist,
+    };
     if (!isset($_REQUEST["data"])) {
         echo json_encode("error2-2");
         exit;
     }
-    // $req_data = $_REQUEST["data"];
-    echo json_encode("hoge");
+    $req_data = $_REQUEST["data"];
+    try {
+        $dbh->beginTransaction();
+        $sql = $req_target->sql_insert();
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($req_data);
+        $dbh->commit();
+        $status = array(
+            "status" => "success"
+        );
+    } catch (PDOException $e) {
+        file_put_contents("./log.txt", $e);
+        $dbh->rollBack();
+        $status = array(
+            "status" => "fail"
+        );
+    }
+    echo json_encode($status);
 }

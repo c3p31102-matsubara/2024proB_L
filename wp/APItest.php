@@ -11,7 +11,9 @@
         import { getjson, insert, dataType } from "./js/APIaccessor.js";
         let userlist = await getjson(dataType.managementlist, false, 1);
         console.log(userlist);
-        let inserttest = await insert(dataType.userlist, "");
+        let inserttest = await insert(dataType.userlist, [
+            "3", "student", "c3p31102", "1", "c3p31102@bunkyo.ac.jp", "08013206297", "yuki"
+        ]);
         console.log(inserttest);
     </script>
 </body>

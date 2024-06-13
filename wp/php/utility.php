@@ -42,7 +42,7 @@ abstract class sqlTable implements JsonSerializable
     }
     public function sql_insert(): string
     {
-        return "INSERT INTO " . $this->table_name . " (" . $this->columns . ") VALUES (" . str_repeat("?.", substr_count($this->columns, ",")) . "?);";
+        return "INSERT INTO " . $this->table_name . " (" . $this->columns . ") VALUES (" . str_repeat("?,", substr_count($this->columns, ",")) . "?);";
     }
     abstract function AddContents(array $contents): void;
     public function GetContents(): array
@@ -75,7 +75,7 @@ class user_list extends sqlTable
     public function __construct(PDO $dbh)
     {
         // $sql = "SELECT user.ID, attribute, affiliationID, EmailAddress, number, telephone FROM user;";
-        $this->columns = "ID, attribute, affiliationID, EmailAddress, number, telephone, name";
+        $this->columns = "ID, attribute, number, affiliationID, EmailAddress, telephone, name";
         $this->table_name = "user";
         $this->Update($dbh);
     }
