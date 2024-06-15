@@ -175,6 +175,7 @@ class affiliation_list extends sqlTable
 }
 abstract class item implements JsonSerializable
 {
+    var int $ID;
     public function __construct(array $args)
     {
         foreach ($args as $key => $value)
@@ -199,7 +200,6 @@ enum userType: string
 }
 class user extends item
 {
-    var int $ID;
     var userType $attribute;
     var string $number;
     var int $affiliationID;
@@ -242,7 +242,6 @@ class user extends item
 }
 class lostitem extends item
 {
-    var int $ID;
     var int $userID;
     var string $color;
     var string $features;
@@ -284,7 +283,6 @@ class lostitem extends item
 }
 class discovery extends item
 {
-    var int $ID;
     var int $userID;
     var string $color;
     var string $features;
@@ -326,7 +324,6 @@ class discovery extends item
 }
 class management extends item
 {
-    var int $ID;
     var int $lostID;
     var int $discoveryID;
     var string $changedate;
@@ -366,7 +363,6 @@ class management extends item
 }
 class affiliation extends item
 {
-    var $ID;
     var $Faculty;
     var $department;
     public function JsonSerialize(): array
