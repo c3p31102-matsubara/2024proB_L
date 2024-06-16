@@ -10,11 +10,12 @@
     <script type="module">
         import { getjson, insert, dataType } from "./js/APIaccessor.js";
         let userlist = await getjson(dataType.managementlist, true, 1);
-        console.log(userlist);
+        document.write(JSON.stringify(userlist));
         let inserttest = await insert(dataType.userlist, [
             "3", "student", "c3p31102", "1", "c3p31102@bunkyo.ac.jp", "08013206297", "yuki"
         ]);
-        console.log(inserttest);
+        document.write("<hr>");
+        document.write(JSON.stringify(inserttest));
     </script>
 </body>
 

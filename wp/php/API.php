@@ -39,9 +39,7 @@ if ($req_type == "json") {
     else
         $req_id = 1;
     if (isset($_REQUEST["recursive"]))
-        $req_recr = $_REQUEST["recursive"];
-    else
-        $req_recr = false;
+        $req_recr = $_REQUEST["recursive"] == 'true';
     match ($req_target) {
         dataType::userlist => $obj = $userlist,
         dataType::lostitemlist => $obj = $lostitemlist,
@@ -83,9 +81,11 @@ if ($req_type == "json") {
         $stmt = $dbh->prepare($sql);
         $stmt->execute($req_data);
         $dbh->commit();
+        output("success", null);
     } catch (PDOException $e) {
-        file_put_contents("./log.txt", $e);
+        file_put_contents("./log.txt", $e, FILE_APPEND);
         $dbh->rollBack();
+        output("fail", $e);
     }
-    output("success", null);
+    exit;
 }

@@ -1,49 +1,52 @@
-[
-    {
-        "ID": 1,
-        "changedate": "2024-06-08 15:19:37.000000",
-        "changedetail": "いろいろ",
-        "lostitem": {
+{
+    "status": "success",
+    "body": [
+        {
             "ID": 1,
-            "color": "赤",
-            "features": "赤いバック",
-            "category": "バック",
-            "datetime": "2024-06-08 15:17:37.000000",
-            "place": "3号館",
-            "user": {
+            "changedate": "2024-06-08 15:19:37.000000",
+            "changedetail": "いろいろ",
+            "lostitem": {
                 "ID": 1,
-                "attribute": "student",
-                "number": "c3p11111",
-                "emailAddress": "ccccccccc@bunkyo.ac.jp",
-                "telephone": "000000000",
-                "name": "hogehoge",
-                "affiliation": {
+                "color": "赤",
+                "features": "赤いバック",
+                "category": "バック",
+                "datetime": "2024-06-08 15:17:37.000000",
+                "place": "3号館",
+                "user": {
                     "ID": 1,
-                    "faculty": "情報学部",
-                    "department": "情報システム学科"
+                    "attribute": "student",
+                    "number": "c3p11111",
+                    "emailAddress": "ccccccccc@bunkyo.ac.jp",
+                    "telephone": "000000000",
+                    "name": "hogehoge",
+                    "affiliation": {
+                        "ID": 1,
+                        "faculty": "情報学部",
+                        "department": "情報システム学科"
+                    }
                 }
-            }
-        },
-        "discovery": {
-            "ID": 1,
-            "color": "赤",
-            "features": "青いバック",
-            "category": "バック",
-            "datetime": "2024-06-08 15:17:37.000000",
-            "place": "7号館",
-            "user": {
+            },
+            "discovery": {
                 "ID": 1,
-                "attribute": "student",
-                "number": "c3p11111",
-                "emailAddress": "ccccccccc@bunkyo.ac.jp",
-                "telephone": "000000000",
-                "name": "hogehoge",
-                "affiliation": {
+                "color": "赤",
+                "features": "青いバック",
+                "category": "バック",
+                "datetime": "2024-06-08 15:17:37.000000",
+                "place": "7号館",
+                "user": {
                     "ID": 1,
-                    "faculty": "情報学部",
-                    "department": "情報システム学科"
+                    "attribute": "student",
+                    "number": "c3p11111",
+                    "emailAddress": "ccccccccc@bunkyo.ac.jp",
+                    "telephone": "000000000",
+                    "name": "hogehoge",
+                    "affiliation": {
+                        "ID": 1,
+                        "faculty": "情報学部",
+                        "department": "情報システム学科"
+                    }
                 }
             }
         }
-    }
-]
+    ]
+}
