@@ -12,7 +12,7 @@
         let userlist = await getjson(dataType.managementlist, true, 1);
         document.write(JSON.stringify(userlist));
         let inserttest = await insert(dataType.userlist, [
-            "3", "student", "c3p31102", "1", "c3p31102@bunkyo.ac.jp", "08013206297", "yuki"
+            "student", "c3p31102", "1", "c3p31102@bunkyo.ac.jp", "08013206297", "yuki"
         ]);
         document.write("<hr>");
         document.write(JSON.stringify(inserttest));

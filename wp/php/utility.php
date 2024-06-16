@@ -42,7 +42,7 @@ abstract class sqlTable implements JsonSerializable
     }
     public function sql_insert(): string
     {
-        return "INSERT INTO " . $this->table_name . " (" . $this->columns . ") VALUES (" . str_repeat("?,", substr_count($this->columns, ",")) . "?);";
+        return "INSERT INTO " . $this->table_name . " (" . implode(',', array_slice(explode(',', $this->columns), 1)) . ") VALUES (" . str_repeat("?,", substr_count($this->columns, ",") - 1) . "?);";
     }
     abstract function AddContents(array $contents): void;
     public function GetContents(): array
