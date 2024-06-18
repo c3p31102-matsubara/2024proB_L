@@ -21,5 +21,5 @@ window.addEventListener('load', async (event) => {
     else {
         attribute = "teacher";
     }
-    insert(dataType.userlist, [attribute, "c3p31102",affiliation_number, form_email, form_telephone, form_name])
+    console.log(insert(dataType.userlist, [attribute, "c3p31102", affiliation_number, form_email, form_telephone, form_name]));
 })

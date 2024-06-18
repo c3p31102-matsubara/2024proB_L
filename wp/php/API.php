@@ -81,7 +81,11 @@ if ($req_type == "json") {
         $stmt = $dbh->prepare($sql);
         $stmt->execute($req_data);
         $dbh->commit();
-        output("success", null);
+        $dbh->beginTransaction();
+        $sql = "SELECT LAST_INSERT_ID()";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        output("success", array("id" => $stmt));
     } catch (PDOException $e) {
         file_put_contents("./log.txt", $e, FILE_APPEND);
         $dbh->rollBack();
