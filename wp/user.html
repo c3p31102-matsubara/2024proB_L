@@ -22,35 +22,35 @@
       </div>
     </div>
     <div class="container">
-      <div class="col mt-4">
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">氏名</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="氏名">
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">所属</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>情報学部学生</option>
-            <option value="1">健康栄養学部学生</option>
-            <option value="2">情報学部教員</option>
-            <option value="3">事務局</option>
-            <option value="4">その他</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">メールアドレス</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">電話番号</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-        </div>
-        <div>
-          <form action="complete.html"method="post">
+      <form action="complete.php" method="post">
+        <div class="col mt-4">
+          <div class="mb-3">
+            <label for="name" class="form-label">氏名</label>
+            <input class="form-control" id="name" name="name" placeholder="氏名">
+          </div>
+          <div class="mb-3">
+            <label for="affiliation" class="form-label">所属</label>
+            <select class="form-select" id="affiliation" name="affiliation" aria-label="Default select example">
+              <option selected>情報学部学生</option>
+              <option value="1">健康栄養学部学生</option>
+              <option value="2">情報学部教員</option>
+              <option value="3">事務局</option>
+              <option value="4">その他</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">メールアドレス</label>
+            <input class="form-control" id="email" name="email" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="telephone" class="form-label">電話番号</label>
+            <input class="form-control" id="telephone" name="telephone" placeholder="">
+          </div>
+          <div>
             <button type="submit" class="btn btn-success center-block">登録</button>
-          </form>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
     <footer>
       文教大学 情報学部 情報システム学科 プロジェクト演習BC
